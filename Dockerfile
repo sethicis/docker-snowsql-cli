@@ -14,4 +14,4 @@ RUN if [ "$TARGETARCH" = "arm64" ]; then \
 RUN useradd -ms /bin/bash abc
 USER abc
 
-ENTRYPOINT ["snowsql", "-v"]
+CMD ["snowsql", "-v"]
