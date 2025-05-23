@@ -56,7 +56,7 @@ jobs:
             - 
                 name: Test
                 run: |
-                    docker run --rm sethicis/snowsql-cli:latest
+                    docker run --rm ${{ env.LATEST_TAG }}
             - 
                 if: ${{ github.event_name == 'push' }}
                 name: Build and push
