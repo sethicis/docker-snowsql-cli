@@ -26,8 +26,8 @@ jobs:
     build-image:
         runs-on: ubuntu-latest
         env:
-            LATEST_TAG: sethicis/snowsql-cli:latest
-            IMAGE_TAGS: 'sethicis/snowsql-cli:rockylinux-9,sethicis/snowsql-cli:0.0.1'
+            LATEST_TAG: ghcr.io/sethicis/snowsql-cli:latest
+            IMAGE_TAGS: 'ghcr.io/sethicis/snowsql-cli:rockylinux-9,ghcr.io/sethicis/snowsql-cli:0.0.1'
         permissions:
             contents: read
             packages: write
@@ -56,7 +56,7 @@ jobs:
             - 
                 name: Test
                 run: |
-                    docker run --rm sethicis/snowsql-cli:latest
+                    docker run --rm ${{ env.LATEST_TAG }}
             - 
                 if: ${{ github.event_name == 'push' }}
                 name: Build and push
