@@ -1,0 +1,54 @@
+name: Build Docker Image
+
+on:
+    pull_request:
+        types:
+            - synchronize
+            - opened
+            - ready_for_review
+            - reopened
+        paths-ignore:
+            - 'LICENSE'
+            - '*.md'
+    push:
+        branches:
+            - 'main'
+
+jobs:
+    build-image:
+        runs-on: ubuntu:latest
+        env:
+            LATEST_TAG: sethicis/snowsql-cli:latest
+            IMAGE_TAGS: 'sethicis/snowsql-cli:rockylinux-9,sethicis/snowsql-cli:0.0.1'
+        steps:
+            - 
+                name: Login to GitHub Container Registry
+                uses: docker/login-action@v3
+                with:
+                    registry: ghcr.io
+                    username: ${{ github.actor }}
+                    password: ${{ secrets.GITHUB_TOKEN }}
+            -
+                name: Set up Docker Buildx
+                uses: docker/setup-buildx-action@v3
+            -
+                name: Set up QEMU
+                uses: docker/setup-qemu-action@v3
+            - 
+                name: Build and export to Docker
+                uses: docker/build-push-action@v6
+                with:
+                    load: true
+                    tags: ${{ env.LATEST_TAG }}
+            - 
+                name: Test
+                run: |
+                    docker run --rm sethicis/snowsql-cli:latest
+            - 
+                if: ${{ github.event_name == 'push' }}
+                name: Build and push
+                uses: docker/build-push-action@v6
+                with:
+                    platforms: linux/amd64,linux/arm64
+                    push: true
+                    tags: ${{ env.LATEST_TAG }},${{ env.IMAGE_TAGS }}
