@@ -20,6 +20,7 @@ on:
                 required: true
                 default: false
                 type: boolean
+    merge_group:
 
 jobs:
     build-image:
