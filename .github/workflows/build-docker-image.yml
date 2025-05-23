@@ -27,7 +27,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             LATEST_TAG: ghcr.io/sethicis/snowsql-cli:latest
-            IMAGE_TAGS: 'ghcr.io/sethicis/snowsql-cli:rockylinux-9,ghcr.io/sethicis/snowsql-cli:0.0.1'
+            IMAGE_TAGS: 'ghcr.io/sethicis/snowsql-cli:rockylinux-9'
         permissions:
             contents: read
             packages: write
