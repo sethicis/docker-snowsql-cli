@@ -13,6 +13,13 @@ on:
     push:
         branches:
             - 'main'
+    workflow_dispatch:
+        inputs:
+            should-push:
+                description: 'Should we push the image?'
+                required: true
+                default: false
+                type: boolean
 
 jobs:
     build-image:
@@ -20,6 +27,11 @@ jobs:
         env:
             LATEST_TAG: sethicis/snowsql-cli:latest
             IMAGE_TAGS: 'sethicis/snowsql-cli:rockylinux-9,sethicis/snowsql-cli:0.0.1'
+        permissions:
+            contents: read
+            packages: write
+            attestations: write
+            id-token: write
         steps:
             - 
                 name: Login to GitHub Container Registry
