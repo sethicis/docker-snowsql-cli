@@ -16,7 +16,7 @@ on:
 
 jobs:
     build-image:
-        runs-on: ubuntu:latest
+        runs-on: ubuntu-latest
         env:
             LATEST_TAG: sethicis/snowsql-cli:latest
             IMAGE_TAGS: 'sethicis/snowsql-cli:rockylinux-9,sethicis/snowsql-cli:0.0.1'
