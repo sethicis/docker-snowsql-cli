@@ -3,6 +3,7 @@ FROM rockylinux:9
 ARG TARGETARCH
 ARG BUILDPLATFORM
 
+RUN dnf install mysql postgresql -y
 RUN echo "Building for $TARGETARCH"
 RUN if [ "$TARGETARCH" = "arm64" ]; then \
         echo "Building for ARM64"; \
